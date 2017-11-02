@@ -1,0 +1,30 @@
+@import 'variables';
+@import '../.././node_modules/bulma/bulma.sass';
+
+body {
+  margin: 0;
+  background: $color-wild-sand;
+}
+
+html.modal-open {
+  overflow: hidden;
+}
+
+#app {
+  font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.flex-container {
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 80%;
+  margin: 0 auto;
+
+  & li {
+    list-style: none;
+  }
+}
