@@ -2,18 +2,20 @@
   <main id="main-content">
     <div class="resize-bar">
         <div class="resize-buttons">
-          <button @click="changeImageSize('small')">pequeno</button>
-          <button @click="changeImageSize('normal')">maior</button>
+          <button class="button is-light small-shots" @click="changeImageSize('small')">
+          </button>
+          <button class="button is-light large-shots" @click="changeImageSize('normal')"></button>
         </div>
     </div>
-    <div class="wrapper">
-      <section>
-          <app-shots-list></app-shots-list>
-      </section>
-      <app-modal :active="activateModal" @close-modal="close">
-          <app-shot-detailed v-if="shot" :shot="shot"></app-shot-detailed>
-      </app-modal>
-    </div>
+    <section class="section">
+      <div class="container wrapper">
+        <app-shots-list></app-shots-list>
+        <app-modal :active="activateModal" @close-modal="close">
+            <app-shot-detailed v-if="shot" :shot="shot"></app-shot-detailed>
+        </app-modal>
+      </div>
+    </section>
+
   </main>
 </template>
 
@@ -35,9 +37,11 @@ export default {
     openModal(shot) {
       this.shot = shot
       this.activateModal = 'is-active'
+      document.documentElement.classList.add("is-clipped")
     },
     close() {
       this.activateModal = ''
+      document.documentElement.classList.remove("is-clipped");
     },
     changeImageSize(size) {
       EventBus.$emit('resize-image', size)
@@ -58,7 +62,14 @@ export default {
 @import '.././styles/variables.scss';
 
 .wrapper {
-  padding: 40px;
+  width: 80%;
+}
+
+@media screen and (max-width: 500px) {
+  .resize-buttons {
+    display: none;
+  }
+
 }
 
 .resize-bar {
@@ -66,6 +77,21 @@ export default {
   min-height: 50px;
   border-bottom: 1px solid $color-mercury;
   background: $color-white;
+  margin-bottom: 20px;
+}
+
+.small-shots {
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-image: url('../assets/images/small.png');
+  background-size: 30px 30px;
+}
+
+.large-shots {
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-image: url('../assets/images/large.png');
+  background-size: 30px 30px;
 }
 
 .resize-buttons {
@@ -78,6 +104,5 @@ export default {
     height: 40px;
   }
 }
-
 
 </style>

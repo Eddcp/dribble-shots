@@ -1,23 +1,32 @@
 <template>
-  <ul class="flex-container">
-      <li v-if="shots && shots.length"
-          v-for="shot in filteredShotsList"
-          @click="onShotClick(shot)">
-        <app-shot :shot="shot"></app-shot>
-      </li>
-      <li v-for="error in errors">
-          {{error.message}}
-      </li>
-  </ul>
+  <div>
+    <ul class="columns is-multiline is-mobile">
+        <li class="shot-item column"
+            v-if="shots && shots.length"
+            v-for="shot in filteredShotsList"
+            @click="onShotClick(shot)"
+            :class="imageType === 'small' ?
+              'is-is-one-quarter-tablet':
+              'is-half-tablet'">
+          <app-shot :shot="shot"></app-shot>
+        </li>
+        <li v-for="error in errors">
+            {{error.message}}
+        </li>
+    </ul>
+    <infinite-loading @infinite="infiniteHandler" spinner="bubbles"></infinite-loading>
+  </div>
 </template>
 
 <script>
 import Vue from 'vue';
 import axios from 'axios';
-import { EventBus } from '.././main.js';
 import AppShot from './AppShot.vue';
+import InfiniteLoading from 'vue-infinite-loading';
+import { EventBus } from '.././main.js';
 
-const ACCESS_TOKEN = '7be90c891d972d92b9451c465e51d0796932a45a5f11f60d18423983480abacb'
+
+const ACCESS_TOKEN = '49b5dd154d7308e1602a9a973e58fcce107fa2d3e1a8741643915aa8beaaf7e6'
 const API_URL =  'https://api.dribbble.com/v1/shots/'
 
 export default {
@@ -26,37 +35,69 @@ export default {
     return {
       shots: [],
       errors: [],
-      search: ''
+      search: '',
+      currentPage: 1,
+      imageType: 'small'
     }
   },
   methods: {
     addImageSizeProperty() {
-      this.shots.forEach((shot, index) => {
-          Vue.set(shot, 'imageSize', shot.images.teaser)
-      })
+      if(this.imageType === 'small'){
+        this.shots.forEach((shot, index) => {
+            Vue.set(shot, 'imageSize', shot.images.teaser)
+        })
+      } else {
+        this.shots.forEach((shot, index) => {
+            Vue.set(shot, 'imageSize', shot.images.normal)
+        })
+      }
     },
-    getShots(){
-      axios.get(`${API_URL}?access_token=${ACCESS_TOKEN}`)
-        .then(response => {
-          this.shots = response.data
+    updateCurrentPage() {
+      this.currentPage += 1
+    },
+    infiniteHandler($state) {
+      axios.get(API_URL, {
+        params: {
+          page:this.currentPage,
+          access_token:ACCESS_TOKEN
+        }
+      }).then(response => {
+        if (response.data) {
+          this.shots = this.shots.concat(response.data);
           this.addImageSizeProperty()
-        })
-        .catch(e => {
-          this.errors.push(e)
-        })
+          this.updateCurrentPage()
+          $state.loaded()
+        }
+        else {
+          $state.complete()
+        }
+      }).catch(e => {
+        this.errors.push(e)
+      })
     },
     onShotClick(shot) {
       EventBus.$emit('open-modal', shot)
     },
     updateSearch(search) {
       this.search = search
+    },
+    resizeImage(size) {
+      if(size === 'normal') {
+          this.imageType = 'normal'
+          this.shots.forEach((shot, index) => {
+              Vue.set(shot, 'imageSize', shot.images.normal)
+          })
+      } else {
+        this.imageType = 'small'
+        this.shots.forEach((shot, index) => {
+            Vue.set(shot, 'imageSize', shot.images.teaser)
+        })
+      }
     }
-  },
-  created() {
-    this.getShots()
   },
   mounted() {
     EventBus.$on('filter-shots-by-name', this.updateSearch )
+    EventBus.$on('resize-image', this.resizeImage)
   },
   computed: {
     filteredShotsList() {
@@ -66,11 +107,13 @@ export default {
     }
   },
   components: {
-    AppShot
+    AppShot,
+    InfiniteLoading
   }
 }
 </script>
 
 <style lang="scss" scoped>
+
 
 </style>
