@@ -1,7 +1,6 @@
 <template>
     <header id="header" class="header">
-      <div class="dribble-logo">
-      </div>
+      <div class="dribble-logo"></div>
       <div class="search-input">
         <span></span>
         <input class="input" type="text" placeholder="Search" v-model="search" @input="onChange"/>
@@ -54,5 +53,4 @@ export default {
     display: none;
   }
 }
-
 </style>

@@ -2,8 +2,7 @@
   <main id="main-content">
     <div class="resize-bar">
         <div class="resize-buttons">
-          <button class="button is-light small-shots" @click="changeImageSize('small')">
-          </button>
+          <button class="button is-light small-shots" @click="changeImageSize('small')"></button>
           <button class="button is-light large-shots" @click="changeImageSize('normal')"></button>
         </div>
     </div>
@@ -15,7 +14,6 @@
         </app-modal>
       </div>
     </section>
-
   </main>
 </template>
 
@@ -65,13 +63,6 @@ export default {
   width: 80%;
 }
 
-@media screen and (max-width: 500px) {
-  .resize-buttons {
-    display: none;
-  }
-
-}
-
 .resize-bar {
   width: 100%;
   min-height: 50px;
@@ -94,6 +85,12 @@ export default {
   background-size: 30px 30px;
 }
 
+@media screen and (max-width: 500px) {
+  .resize-buttons {
+    display: none;
+  }
+}
+
 .resize-buttons {
   position: absolute;
   top: 60px;
@@ -104,5 +101,4 @@ export default {
     height: 40px;
   }
 }
-
 </style>

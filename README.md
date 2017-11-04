@@ -2,7 +2,17 @@
 
 > A Vue.js project using Dribble API
 
-This project was developed using the **vue-cli** with **the webpack-simple** template.
+This project was developed using the **vue-cli** with the **webpack-simple** template.
+It consumes the Dribble API and has the following features:
+
+* List shots infinitily
+* Filter list of shots
+* Like a specific shot
+
+## What was used
+
+* [Bulma](https://bulma.io/): Free and open source CSS framework based on Flexbox
+* [Vue-infinite-loading](https://github.com/PeachScript/vue-infinite-loading): An infinite scroll plugin to Vue.js
 
 ## Tools needed to run this project
 

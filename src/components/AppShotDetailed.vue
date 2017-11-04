@@ -41,14 +41,11 @@ export default {
     toggleLike(shot) {
       shot.isLiked = !shot.isLiked
     }
-  },
-  created() {
   }
 }
 </script>
 
 <style lang="scss" scoped>
-
 .shot-detailed {
    &__avatar {
        width: 48px;
@@ -85,8 +82,6 @@ export default {
      &--liked {
        opacity: 1;
      }
-
    }
-
 }
 </style>
