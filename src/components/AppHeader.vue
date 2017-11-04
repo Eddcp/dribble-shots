@@ -2,8 +2,7 @@
     <header id="header" class="header">
       <div class="dribble-logo"></div>
       <div class="search-input">
-        <span></span>
-        <input class="input" type="text" placeholder="Search" v-model="search" @input="onChange"/>
+        <input class="input icon-search" type="text" placeholder="Search" v-model="search" @input="onChange"/>
       </div>
     </header>
 </template>
@@ -35,10 +34,27 @@ export default {
   padding-left: 20px;
 }
 
+.icon-search {
+  background-size: 28px 28px;
+  background-image: url('../assets/images/icon-search.png');
+  background-repeat: no-repeat;
+  padding-left: 30px;
+}
+
 .search-input {
   position: absolute;
   top: 10px;
   right: 30px;
+
+
+  @media screen and (max-width: 500px) {
+    position: absolute;
+    top: 10px;
+    left: 0;
+    right: 0;
+    width: calc(100vw - 20px);
+    margin: 0 auto;
+  }
 
 }
 

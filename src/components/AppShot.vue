@@ -28,7 +28,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 .shot-container {
   display: inline-block;
   padding: 10px;
@@ -36,8 +35,6 @@ export default {
   margin: 10px;
   cursor: pointer;
   box-sizing:border-box;
-  min-width:200px;
-  min-height:150px;
 
   &__avatar {
     width: 16px;

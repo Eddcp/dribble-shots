@@ -68,7 +68,6 @@ export default {
   min-height: 50px;
   border-bottom: 1px solid $color-mercury;
   background: $color-white;
-  margin-bottom: 20px;
 }
 
 .small-shots {

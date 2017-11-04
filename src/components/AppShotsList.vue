@@ -1,12 +1,12 @@
 <template>
   <div>
-    <ul class="columns is-multiline is-mobile">
+    <ul class="columns is-multiline is-centered">
         <li class="shot-item column"
             v-if="shots && shots.length"
             v-for="shot in filteredShotsList"
             @click="onShotClick(shot)"
             :class="imageType === 'small' ?
-              'is-is-one-quarter-tablet':
+              'is-full-mobile is-half-mobile is-one-quarter-tablet':
               'is-half-tablet'">
           <app-shot :shot="shot"></app-shot>
         </li>
@@ -114,4 +114,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+li {
+  display: inline-block;
+}
+
+@media screen and (max-width: 500px) {
+  .is-full-mobile {
+    flex: none;
+    width: 100%;
+  }
+}
 </style>
