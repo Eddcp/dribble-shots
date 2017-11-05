@@ -38,9 +38,9 @@ export default {
 
   &__user {
     white-space: nowrap;
-	  text-overflow: ellipsis;
+    text-overflow: ellipsis;
     overflow: hidden;
-	  text-align: left;
+    text-align: left;
   }
 
   &__avatar {
@@ -57,7 +57,7 @@ export default {
     white-space: nowrap;
 
     @media screen and (min-width: 768px) {
-	      font-size: 12px;
+    	font-size: 12px;
     }
   }
 }
