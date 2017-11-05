@@ -1,7 +1,7 @@
 <template lang="html">
   <div v-if="shot" class="shot-container">
     <img :src="shot.imageSize"/>
-    <div>
+    <div class="shot-container__user">
       <img class="shot-container__avatar" :src="shot.user.avatar_url" />
       <span class="shot-container__name">{{shot.user.name}}</span>
     </div>
@@ -36,6 +36,13 @@ export default {
   cursor: pointer;
   box-sizing:border-box;
 
+  &__user {
+    white-space: nowrap;
+	  text-overflow: ellipsis;
+    overflow: hidden;
+	  text-align: left;
+  }
+
   &__avatar {
     width: 16px;
     height: 16px;
@@ -45,6 +52,13 @@ export default {
 
   &__name {
     font-size: 14px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+
+    @media screen and (min-width: 768px) {
+	      font-size: 12px;
+    }
   }
 }
 </style>

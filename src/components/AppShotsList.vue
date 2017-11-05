@@ -114,6 +114,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+ul {
+  text-align: center;
+}
+
 li {
   display: inline-block;
 }
